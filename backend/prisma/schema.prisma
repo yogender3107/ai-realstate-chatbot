@@ -1,0 +1,29 @@
+generator client { 
+  provider = "prisma-client-js"
+  output = "../src/generated/prisma"
+}
+datasource db { 
+  provider = "postgresql" 
+  url = env("DATABASE_URL") 
+}
+
+// EXAMPLE ONLY: replace with your actual Prisma schema.
+model Property {
+  id           Int      @id @default(autoincrement())
+  title        String
+  city         String
+  locality     String?
+  address      String?
+  price        Decimal  @db.Decimal(14, 2)
+  bedrooms     Int?
+  bathrooms    Int?
+  areaSqft     Int?
+  propertyType String
+  status       String   @default("Available")
+  description  String?
+  imageUrl     String?
+  @@index([city])
+  @@index([locality])
+  @@index([status])
+  @@index([price])
+}
